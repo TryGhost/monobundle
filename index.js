@@ -124,7 +124,7 @@ function getWorkspaces(from) {
         pkgInfo.pkg.resolutions[workspacePkgInfo.pkg.name] = packedFilename;
 
         console.log(`packaging ${w}`);
-        await ultraRunner.run(['' /* placeholder */, '' /* placeholder */, '--filter', workspacePkgInfo.pkg.name, '-r', 'npm', 'pack', '--pack-destination', '../core/components']);
+        await ultraRunner.run(['' /* placeholder */, '' /* placeholder */, '--filter', w, '-r', 'npm', 'pack', '--pack-destination', '../core/components']);
     }
 
     pkgInfo.write();
