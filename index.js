@@ -91,10 +91,6 @@ function getWorkspaces(from) {
     for (const w of workspaces) {
         const workspacePkgInfo = JSONFile.for(path.join(w, 'package.json'));
 
-        if (!workspacePkgInfo.pkg.name.startsWith('@')) {
-            continue;
-        }
-
         if (!workspacePkgInfo.pkg.private) {
             continue;
         }
