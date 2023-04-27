@@ -110,6 +110,11 @@ function getWorkspaces(from) {
             pkgInfo.pkg.dependencies[workspacePkgInfo.pkg.name] = packedFilename;
         }
 
+        if (pkgInfo.pkg.devDependencies[workspacePkgInfo.pkg.name]) {
+            console.log(`setting devDependencies override for ${workspacePkgInfo.pkg.name} to ${packedFilename}`);
+            pkgInfo.pkg.devDependencies[workspacePkgInfo.pkg.name] = packedFilename;
+        }
+
         if (pkgInfo.pkg.optionalDependencies[workspacePkgInfo.pkg.name]) {
             console.log(`setting optionalDependencies override for ${workspacePkgInfo.pkg.name} to ${packedFilename}`);
             pkgInfo.pkg.optionalDependencies[workspacePkgInfo.pkg.name] = packedFilename;
