@@ -102,23 +102,29 @@ function getWorkspaces(from) {
         const slugifiedName = workspacePkgInfo.pkg.name.replace(/@/g, '').replace(/\//g, '-');
         const packedFilename = `file:` + path.join(bundlePath, `${slugifiedName}-${workspacePkgInfo.pkg.version}.tgz`);
 
-        if (pkgInfo.pkg.dependencies[workspacePkgInfo.pkg.name]) {
+        const isDependency = pkgInfo.pkg.dependencies[workspacePkgInfo.pkg.name];
+        const isDevDependency = pkgInfo.pkg.devDependencies[workspacePkgInfo.pkg.name];
+        const isOptionalDependency = pkgInfo.pkg.optionalDependencies[workspacePkgInfo.pkg.name];
+
+        if (isDependency) {
             console.log(`setting dependencies override for ${workspacePkgInfo.pkg.name} to ${packedFilename}`);
             pkgInfo.pkg.dependencies[workspacePkgInfo.pkg.name] = packedFilename;
         }
 
-        if (pkgInfo.pkg.devDependencies[workspacePkgInfo.pkg.name]) {
+        if (isDevDependency) {
             console.log(`setting devDependencies override for ${workspacePkgInfo.pkg.name} to ${packedFilename}`);
             pkgInfo.pkg.devDependencies[workspacePkgInfo.pkg.name] = packedFilename;
         }
 
-        if (pkgInfo.pkg.optionalDependencies[workspacePkgInfo.pkg.name]) {
+        if (isOptionalDependency) {
             console.log(`setting optionalDependencies override for ${workspacePkgInfo.pkg.name} to ${packedFilename}`);
             pkgInfo.pkg.optionalDependencies[workspacePkgInfo.pkg.name] = packedFilename;
         }
 
-        console.log(`setting resolution override for ${workspacePkgInfo.pkg.name} to ${packedFilename}`);
-        pkgInfo.pkg.resolutions[workspacePkgInfo.pkg.name] = packedFilename;
+        if (isDependency || isDevDependency || isOptionalDependency) {
+            console.log(`setting resolution override for ${workspacePkgInfo.pkg.name} to ${packedFilename}`);
+            pkgInfo.pkg.resolutions[workspacePkgInfo.pkg.name] = packedFilename;
+        }
 
         console.log(`packaging ${w}`);
         await ultraRunner.run(['' /* placeholder */, '' /* placeholder */, '--filter', workspaceName, '-r', 'npm', 'pack', '--pack-destination', '../core/components']);
