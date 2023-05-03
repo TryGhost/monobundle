@@ -90,7 +90,7 @@ function getWorkspaces(from) {
 
     for (const w of workspaces) {
         const workspacePkgInfo = JSONFile.for(path.join(w, 'package.json'));
-        const workspaceName = path.parse(w).name;
+        const workspaceName = `ghost/${path.parse(w).name}`;
 
         if (!workspacePkgInfo.pkg.private) {
             continue;
