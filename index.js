@@ -92,7 +92,7 @@ function getWorkspaces(from) {
         const workspacePkgInfo = JSONFile.for(path.join(w, 'package.json'));
         const workspaceName = `ghost/${path.parse(w).name}`;
 
-        if (workspaceName === 'admin') {
+        if (workspaceName === 'ghost/admin') {
             continue;
         }
 
