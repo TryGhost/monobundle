@@ -92,6 +92,10 @@ function getWorkspaces(from) {
         const workspacePkgInfo = JSONFile.for(path.join(w, 'package.json'));
         const workspaceName = `ghost/${path.parse(w).name}`;
 
+        if (workspaceName === 'ghost/admin') {
+            continue;
+        }
+
         if (!workspacePkgInfo.pkg.private) {
             continue;
         }
