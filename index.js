@@ -81,7 +81,7 @@ function getWorkspaces(from) {
     }
 
     const ghostVersion = pkgInfo.pkg.version;
-    const workspaces = getWorkspaces(cwd).filter(w => !w.startsWith(cwd));
+    const workspaces = getWorkspaces(cwd).filter(w => !w.startsWith(cwd) && fs.existsSync(path.join(w, 'package.json')));
     const bundlePath = './components';
 
     if (!fs.existsSync(bundlePath)){
