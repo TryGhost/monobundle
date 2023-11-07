@@ -96,6 +96,10 @@ function getWorkspaces(from) {
             continue;
         }
 
+        if (w.includes('apps/')) {
+            continue;
+        }
+
         if (!workspacePkgInfo.pkg.private) {
             continue;
         }
